@@ -9,11 +9,13 @@
 # Task 2 for the exercise is to modify it to also display the 10 largest files in the system, sorted by their sizes
 # The listing should include the file name, owner, and size in MBytes and be displayed after the listings of setuid and setgid files
 
-echo "setgid files:"
+echo "setuid files:"
+echo "**************** Step 1 ***************************"
+find / -type f -executable -perm -4000 -ls 2>/dev/null | sort -k 3
 
 # Task 1 - to find and display the setgid files
 echo "=========== LIST OF FORMATTED FILES ================="
-find / -type f -executable -perm -4000 -ls 2>/dev/null | sort -k 3
+find / -type f -executable -perm -2000 -ls 2>/dev/null | sort -k 3
 
 # Task 2 - to sort the size of file, show in format
 echo "+++++++++++ 10 LARGEST FILES SORTED ++++++++++++++++"
