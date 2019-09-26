@@ -9,14 +9,39 @@
 #   - first divided by second gives X with a remainder of Y
 # Improve this script by calculating and displaying the first number raised to the power of the second number
 
-firstnum=5
-secondnum=2
+#firstnum=5
+#secondnum=2
+read -p "Hii, choose first number:" firstnum
+read -p "Hii, select second number:" secondnum
+
+# Arthimatic calculation
 sum=$((firstnum + secondnum))
+subtraction=$((firstnum - secondnum))
+multiplication=$((firstnum * secondnum))
 dividend=$((firstnum / secondnum))
+modulus=$((firstnum % secondnum))
+power=$((firstnum ** secondnum))
+
 fpdividend=$(awk "BEGIN{printf \"%.2f\", $firstnum/$secondnum}")
 
 cat <<EOF
+
+SUM OF TWO NUMBERS
 $firstnum plus $secondnum is $sum
+
+SUBTRACTION OF TWO NUMBERS
+$firstnum subtraction $secondnum is $subtraction
+
+MULTIPLICATION OF TWO NUMBERS
+$firstnum multiplication $secondnum is $multiplication
+
+DIVISION OF TWO NUMBERS
 $firstnum divided by $secondnum is $dividend
+
+MODULUS OF TWO NUMBERS
+$firstnum is dvided by $secondnum gives $dividend with the number $modulus
+
+POWER METHOD
+$firstnum power of the $secondnum is $power
   - More precisely, it is $fpdividend
 EOF
