@@ -11,8 +11,8 @@
 
 #firstnum=5
 #secondnum=2
-read -p "Hii, choose first number:" firstnum
-read -p "Hii, select second number:" secondnum
+read -p "Hii my friend, choose first number:" firstnum
+read -p "Hii my friend, select second number:" secondnum
 
 # Arthimatic calculation
 sum=$((firstnum + secondnum))
