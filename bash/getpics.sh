@@ -22,3 +22,22 @@ test -d ~/Pictures && cat <<EOF
 Found $(find ~/Pictures -type f|wc -l) files in the Pictures directory.
 The Pictures directory uses $(du -sh ~/Pictures|awk '{print $1}') space on the disk.
 EOF
+
+# SCRIPT FOR THE TARFILES
+echo "****************
+               FOLOWING FILES ARE UNZIP TGZ FILES
+                                          ***********************"
+
+# download a tarfile of pictures to our Pictures directory if it isn't already there - assumes you are online
+test -f ~/Pictures/pics.tgz || wget -q -O ~/Pictures/pics.tgz http://zonzorp.net/pics.tgz
+
+# unpack the downloaded tarfile if it is there, then delete the local copy of the tarfile
+test -f ~/Pictures/pics.tgz && tar -C ~/Pictures -xvf ~/Pictures/pics.tgz && rm ~/Pictures/pics.tgz
+
+#==================
+echo "========================================================="
+# Make a report on what we have in the Pictures directory
+test -d ~/Pictures && cat <<EOF
+Found $(find ~/Pictures -type f|wc -l) files in the Pictures directory.
+The Pictures directory uses $(du -sh ~/Pictures|awk '{print $1}') space on the disk.
+EOF

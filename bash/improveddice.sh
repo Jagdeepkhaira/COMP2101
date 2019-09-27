@@ -19,5 +19,7 @@ die1=$(( RANDOM % 6 + 1))
 die2=$(( RANDOM % 6 + 1 ))
 # sum up the rolls
 sum=$(( die1 + die2 ))
+# average
+avg=$(($sum / 2))
 # display the results
-echo "Rolled $die1, $die2 for a $sum"
+echo "Rolled $die1, $die2 for a $sum and average $avg"

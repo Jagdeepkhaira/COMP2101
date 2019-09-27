@@ -27,19 +27,19 @@ fpdividend=$(awk "BEGIN{printf \"%.2f\", $firstnum/$secondnum}")
 cat <<EOF
 
 SUM OF TWO NUMBERS
-$firstnum plus $secondnum is $sum
+$firstnum + $secondnum is $sum
 
 SUBTRACTION OF TWO NUMBERS
-$firstnum subtraction $secondnum is $subtraction
+$firstnum - $secondnum is $subtraction
 
 MULTIPLICATION OF TWO NUMBERS
-$firstnum multiplication $secondnum is $multiplication
+$firstnum * $secondnum is $multiplication
 
 DIVISION OF TWO NUMBERS
-$firstnum divided by $secondnum is $dividend
+$firstnum / by $secondnum is $dividend
 
 MODULUS OF TWO NUMBERS
-$firstnum is dvided by $secondnum gives $dividend with the number $modulus
+$firstnum % $secondnum gives $dividend with the number $modulus
 
 POWER METHOD
 $firstnum power of the $secondnum is $power
