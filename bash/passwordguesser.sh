@@ -7,29 +7,33 @@
 #           *** Do not use the exit command
 
 myString="TestString"
-referenceString="password"
+referenceString="hidennis"
 
-[ $myString = $referenceString ] && echo "You guessed the password!" || echo "The password eludes you..."
-#Task-1
-read -p "Enter a password guess:" myString
+[ $myString = $referenceString ] && echo "You guessed the password!"
 
-#Task-2
+#Task-1 -------------- user for a password guess
+read -p "Hi, User guess a password :" myString
+
+#Task-2 ------------------rewriting it to use the if command
 if [ $myString = $referenceString ]
 then
-	echo "You guessed the password!"
+	echo "You guessed the password! "
+
 else
 	echo "The password eludes you..."
+
 fi
 
-#Task-3
+#Task-3 --------------------3 tries to get it right before failing
 for try in {1..3}
 do
-	read -p "Try ($try): Enter a password guess:" myString
+	read -p "Try ($try): Oops!!! Please enter again password:" myString
+
 	if [ $myString = $referenceString ]
 	then
-		printf "You guessed the password!\n"
+		printf "Wonderful!!!!! Successfullly, You guessed the password!\n"
 		break
 	else
-		echo "The password eludes you..."
+		echo "The password eludes you........."
 	fi
 done

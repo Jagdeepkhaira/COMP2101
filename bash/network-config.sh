@@ -51,14 +51,22 @@ routerhostname=$(getent hosts $routeraddress | awk '{print $2}')
 networknumber=$(route -n |awk '/255.255.255.0/''{print $1}')
 networkname=$(getent networks $networknumber | awk '{print $1}')
 
-#================  REPORT   =================================
+#******************  CONFIGURING ************************
 cat <<EOF
 Hostname        : $myhostname
+
 LAN Address     : $lanipaddress
+
 LAN Hostname    : $lanhostname
+
 External IP     : $externalip
+
 Router Address  : $routeraddress
+
 Router Hostname : $routerhostname
+
 Network Number  : $networknumber
+
 Network Name    : $networkname
+
 EOF

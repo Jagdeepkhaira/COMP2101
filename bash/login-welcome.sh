@@ -14,6 +14,7 @@
 ###############
 title="Overlord"
 myname="$USER"
+
 hostname=$(hostname)
 time=$(date +%I:%M%p)
 day=$(date +%A)
@@ -23,12 +24,13 @@ day=$(date +%A)
 ###############
 variable=$(cat <<EOF
 
-Welcome to planet $hostname, "$title $myname!"
+Hii, Welcome to my planet $hostname, "$title $myname!"
 
-IT IS $time ON $day
+TODAY's TIME AND DAY : It is $time on $day
 
 EOF
 )
 cat<<EOF
-$(cowsay$variable)
+$(cowsay -f ren $variable)
+
 EOF
