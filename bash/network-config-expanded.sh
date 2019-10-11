@@ -26,62 +26,43 @@
 #####
 # we use the hostname command to get our system name
 my_hostname=$(hostname)
-
 # the default route can be found in the route table normally
 # the router name is obtained with getent
 default_router_address=$(ip r s default| cut -d ' ' -f 3)
 default_router_name=$(getent hosts $default_router_address|awk '{print $2}')
-
 # finding external information relies on curl being installed and relies on live internet connection
 external_address=$(curl -s icanhazip.com)
-external_name=$(getent hosts $external_address | awk '{print $2}')
-
-
+#external_name=$(getent hosts $external_address | awk '{print $2}')
 cat <<EOF
+#==============================
 System Identification Summary
-=============================
 Hostname      : $my_hostname
 Default Router: $default_router_address
 Router Name   : $default_router_name
 External IP   : $external_address
-External Name : $external_name
+#==============================
 EOF
 
-#####
-# End of Once per host report
-#####
+#=============================
+getint=$(lshw -class network | awk '/logical name:/{print $3}' | wc -l)
+for((m=1;m<=$getint;m+=1));
+do
+  interface=$(lshw -class network | awk '/logical name:/{print $3}' | awk -v t=$m 'NR==t{print $1; exit}')
+  if [[ $interface = lo* ]] ; then
+    continue ;
+  fi
+  #================================
 
-# the second part of the output generates a per-interface report
-# the task is to change this from something that runs once using a fixed value for the interface name to
-#   a dynamic list obtained by parsing the interface names out of a network info command like "ip"
-#   and using a loop to run this info gathering section for every interface found
-
-# the default version uses a fixed name and puts it in a variable
-#####
-# Per-interface report
-#####
-# define the interface being summarized
-interface="eno1"
-
-# Find an address and hostname for the interface being summarized
-# we are assuming there is only one IPV4 address assigned to this interface
-ipv4_address=$(ip a s $interface|awk -F '[/ ]+' '/inet /{print $3}')
-ipv4_hostname=$(getent hosts $ipv4_address | awk '{print $2}')
-
-# Identify the network number for this interface and its name if it has one
-network_address=$(ip route list dev $interface scope link|cut -d ' ' -f 1)
-network_number=$(cut -d / -f 1 <<<"$network_address")
-network_name=$(getent networks $network_number|awk '{print $1}')
-
-cat <<EOF
-Interface $interface:
-===============
-Address         : $ipv4_address
-Name            : $ipv4_hostname
-Network Address : $network_address
-Network Name    : $network_name
-
-EOF
-#####
-# End of per-interface report
-#####
+  ipv4_address=$(ip a s $interface | awk -F '[/ ]+' '/inet /{print $3}')
+  ipv4_hostname=$(getent hosts $ipv4_address | awk '{print $2}')
+  network_address=$(ip rout  e list dev $interface scope link|cut -d ' ' -f 1)
+  network_number=$(cut -d / -f 1 <<<"$network_address")
+  network_name=$(getent networks $network_number|awk '{print $1}')
+  echo ===============================
+  echo Interface    :$interface
+  echo Address         : $ipv4_address
+  echo Name            : $ipv4_hostname
+  echo Network Address : $network_address
+  echo Network Name    : $network_name
+  echo ===============================
+done
