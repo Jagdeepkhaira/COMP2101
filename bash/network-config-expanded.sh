@@ -55,14 +55,20 @@ do
 
   ipv4_address=$(ip a s $interface | awk -F '[/ ]+' '/inet /{print $3}')
   ipv4_hostname=$(getent hosts $ipv4_address | awk '{print $2}')
-  network_address=$(ip rout  e list dev $interface scope link|cut -d ' ' -f 1)
+  network_address=$(ip rout list dev $interface scope link|cut -d ' ' -f 1)
   network_number=$(cut -d / -f 1 <<<"$network_address")
   network_name=$(getent networks $network_number|awk '{print $1}')
+
   echo ===============================
   echo Interface    :$interface
+
   echo Address         : $ipv4_address
+
   echo Name            : $ipv4_hostname
+
   echo Network Address : $network_address
+
   echo Network Name    : $network_name
+
   echo ===============================
 done
